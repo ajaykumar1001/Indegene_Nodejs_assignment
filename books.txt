@@ -1,0 +1,44 @@
+db.books.insertMany([
+    {
+        authorId: ObjectId("5ee24e55c444cc62db562634"),
+        language: "Java",
+        bookName: "Java Complete Reference volume 1",
+        price: 3000,
+        sold: 150
+    },
+    {
+        authorId: ObjectId("5ee24e55c444cc62db562634"),
+        language: "Java",
+        bookName: "Java Complete Reference volume 2",
+        price: 5000,
+        sold: 200
+    },
+    {
+        authorId: ObjectId("5ee24e55c444cc62db56262f"),
+        language: "OOP",
+        bookName: "OOP for beginners",
+        price: 1000,
+        sold: 50
+    },
+    {
+        authorId: ObjectId("5ee24e55c444cc62db56262f"),
+        language: "OOP",
+        bookName: "OOP advanced",
+        price: 1500,
+        sold: 25
+    },
+    {
+        authorId: ObjectId("5ee24e55c444cc62db562631"),
+        language: "Python",
+        bookName: "Python foundation",
+        price: 2500,
+        sold: 100
+    },
+    {
+        authorId: ObjectId("5ee24e55c444cc62db562635"),
+        language: "Scala",
+        bookName: "Scala in-depth",
+        price: 5000,
+        sold: 15
+    }
+])

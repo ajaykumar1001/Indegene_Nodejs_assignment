@@ -1,0 +1,64 @@
+TASK1: Create GET api to fetch authors who have greater than or equal to n awards
+
+Query:
+
+db.authors.find({'awards' : {$exists:true}, $where: 'this.awards.length >= n' });
+
+
+
+
+
+TASK2: Create GET api to fetch authors who have won award where year >= y
+
+Query:
+
+db.authors.find({'awards.year' : { $gte : y }});
+
+
+
+TASK3: Create GET api to fetch total number of books sold and total profit by each author
+
+Query:
+
+db.authors.aggregate([
+		{
+		   $lookup: {
+			  from: "books",
+			  localField: "_id",   
+			  foreignField: "authorId", 
+			  as: "fromBooks"
+		   }
+		},
+		{ "$unwind": "$fromBooks" },
+		{
+			$group: { _id : '$fromBooks.authorId', totalBooksSold : { $sum : '$fromBooks.sold' }, totalProfit: { $sum : { $multiply: [ "$fromBooks.sold", "$fromBooks.price" ] } }
+			}
+		 }
+		
+	 ]);
+
+
+
+TASK4: Create GET api which accepts parameter birthDate and totalPrice, where birthDate is 
+date string and totalPrice is number
+
+Query:
+
+db.authors.aggregate([
+		{$match: { 'birth' : { $gte : ISODate(birthDate) } }},
+		   {
+			  $lookup: {
+				 from: "books",
+				 localField: "_id",   
+				 foreignField: "authorId", 
+				 as: "fromBooks"
+			  }
+		   },
+		   { "$unwind": "$fromBooks" },
+		   {
+			   $group: { '_id' : '$fromBooks.authorId', 'totalPrice' : { $sum : '$fromBooks.price' } }
+			   
+			},
+			{$match: { 'totalPrice' : { $gte : totalPrice } }}
+		   
+		])
